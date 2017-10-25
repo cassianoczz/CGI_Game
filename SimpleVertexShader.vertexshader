@@ -124,7 +124,7 @@ void main(){
 		}
 		if(Person == 1){
 			mat3 combinadaMM = translationM * escalaM * escalanuM * rotacaoM * shear_XM * shear_YM;
-			gl_Position.xyw = combinadaMM * vec3(vertexPosition_modelspace,1);
+			gl_Position.xyw = combinadaMM * vec3(vertexPosition_modelspace*0.01,1);
     		gl_Position.z = 0;
 		}
 

@@ -439,17 +439,8 @@ int main( void ){
 	shaderLoadCreat();
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &colorbuffer);
-	std::vector<glm::vec2> cabelo_mm = loadModel("./coordinates/cabelo_mm.txt"); 
-	std::vector<glm::vec2> corpo_mm = loadModel("./coordinates/corpo_mm.txt");
-	std::vector<glm::vec2> bracelete_mm = loadModel("./coordinates/bracelete_mm.txt");
-	std::vector<glm::vec2> partes_vermelhas_mm = loadModel("./coordinates/partes_vermelhas_mm.txt");
-	std::vector<glm::vec2> partes_amarelas_mm = loadModel("./coordinates/partes_amarelas_mm.txt");
-	std::vector<glm::vec2> saia_mm = loadModel("./coordinates/saia_mm.txt");
-	std::vector<glm::vec2> chicote_mm = loadModel("./coordinates/chicote_mm.txt");
-	std::vector<glm::vec2> cabelo_hulk = loadModel("./coordinates/cabelo_hulk.txt");
-	std::vector<glm::vec2> corpo_hulk = loadModel("./coordinates/corpo_hulk.txt");
-	std::vector<glm::vec2> calcao_hulk = loadModel("./coordinates/calcao_hulk.txt");
-	
+	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1"); 
+		
 
 	do{	
 		// Limpa a Tela
@@ -458,16 +449,8 @@ int main( void ){
 		glUseProgram(programID);
 		// Primeiro buffer de atributo: vértices
 		configLayout(vertexbuffer, colorbuffer);
-		drawModel(1, GL_TRIANGLES, cabelo_mm, 0.0, 0.0, 0.0);
-		drawModel(1, GL_TRIANGLES, corpo_mm, 0.9568, 0.6431, 0.3764);
-		drawModel(1, GL_TRIANGLES, bracelete_mm, 0.8627, 0.8627, 0.8627);
-		drawModel(1, GL_TRIANGLES, partes_vermelhas_mm, 1.0, 0.0, 0.0);
-		drawModel(1, GL_TRIANGLES, partes_amarelas_mm, 1.0, 1.0, 0.0);
-		drawModel(1, GL_TRIANGLES, saia_mm, 0.0, 0.5, 1.0);
-		drawModel(1, GL_LINE_STRIP, chicote_mm, 1.0, 1.0, 1.0);
-		drawModel(2, GL_TRIANGLES, cabelo_hulk, 0.0, 0.0, 0.0);
-		drawModel(2, GL_TRIANGLES, corpo_hulk, 0.0, 1.0, 0.0);
-		drawModel(2, GL_TRIANGLES, calcao_hulk, 0.58039, 0.0, 0.8274);
+		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
+		
 		MouseKeyboardMovimentObject();
 		if(selecionahulk){
 			E = zoomhulk;

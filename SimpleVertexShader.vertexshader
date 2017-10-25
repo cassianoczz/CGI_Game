@@ -1,0 +1,132 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec2 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexColor;//RGB
+
+// out colorVertex FragmenteShader
+out vec3 fragmentColor;
+
+uniform int Person;
+
+//Matrix do modelo
+//Translacao
+uniform float XTM;
+uniform float YTM;
+
+//rotacao
+uniform float GRAUSM;
+
+
+//escala
+uniform float XEM;
+uniform float YEM;
+uniform float EM;
+
+//shear
+uniform float TANXSM;
+uniform float TANYSM;
+
+mat3 translationM = transpose(mat3(
+	vec3(1, 0, XTM),
+	vec3(0, 1, YTM),
+	vec3(0, 0, 1)
+));
+
+mat3 rotacaoM = transpose(mat3(
+	vec3(cos(GRAUSM),sin(GRAUSM), 0),
+	vec3(sin(GRAUSM)*-1,cos(GRAUSM), 0),
+	vec3(0, 0, 1)
+));
+
+mat3 escalaM = transpose(mat3(
+	vec3(EM, 0, 0),
+	vec3(0, EM, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 escalanuM = transpose(mat3(
+	vec3(XEM, 0, 0),
+	vec3(0, YEM, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 shear_XM = transpose(mat3(
+	vec3(1, tan(TANXSM), 0),
+	vec3(0, 1, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 shear_YM = transpose(mat3(
+	vec3(1, 0, 0),
+	vec3(tan(TANYSM), 1, 0),
+	vec3(0, 0, 1)
+));
+
+//Matrix do modelo
+//Translacao
+uniform float XT;
+uniform float YT;
+
+//rotacao
+uniform float GRAUS;
+
+//escala
+uniform float XE;
+uniform float YE;
+uniform float E;
+
+//shear
+uniform float TANXS;
+uniform float TANYS;
+
+mat3 translation = transpose(mat3(
+	vec3(1, 0, XT),
+	vec3(0, 1, YT),
+	vec3(0, 0, 1)
+));
+
+mat3 rotacao = transpose(mat3(
+	vec3(cos(GRAUS),sin(GRAUS), 0),
+	vec3(sin(GRAUS)*-1,cos(GRAUS), 0),
+	vec3(0, 0, 1)
+));
+
+mat3 escala = transpose(mat3(
+	vec3(E, 0, 0),
+	vec3(0, E, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 escalanu = transpose(mat3(
+	vec3(XE, 0, 0),
+	vec3(0, YE, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 shear_X = transpose(mat3(
+	vec3(1, tan(TANXS), 0),
+	vec3(0, 1, 0),
+	vec3(0, 0, 1)
+));
+
+mat3 shear_Y = transpose(mat3(
+	vec3(1, 0, 0),
+	vec3(tan(TANYS), 1, 0),
+	vec3(0, 0, 1)
+));
+
+void main(){
+		if(Person == 2){
+			mat3 combinada = translation * escala * escalanu * rotacao * shear_X * shear_Y;
+			gl_Position.xyw = combinada * vec3(vertexPosition_modelspace,1);
+    		gl_Position.z = 0;
+		}
+		if(Person == 1){
+			mat3 combinadaMM = translationM * escalaM * escalanuM * rotacaoM * shear_XM * shear_YM;
+			gl_Position.xyw = combinadaMM * vec3(vertexPosition_modelspace,1);
+    		gl_Position.z = 0;
+		}
+
+		fragmentColor = vertexColor;
+}

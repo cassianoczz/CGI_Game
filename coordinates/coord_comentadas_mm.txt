@@ -1,0 +1,288 @@
+GLfloat cabelo_mm[] = {
+-0.082f  0.73f 
+0.082f 0.73f  
+-0.082 0.78f  
+0.082f 0.73f  
+-0.082f 0.78f  
+0.082f 0.78f 
+
+-0.082f 0.73f 
+-0.082f 0.47f
+-0.06f 0.47f 
+-0.082f 0.73f 
+-0.06f 0.47f 
+-0.06f 0.73f 
+
+-0.06f 0.51f 
+-0.06f  0.47f 
+-0.03f 0.47f 
+-0.06f 0.51f 
+-0.03f 0.47f 
+-0.03f 0.51f 
+
+0.082f 0.73f 
+0.082f 0.47f
+0.06f 0.47f 
+0.082f 0.73f 
+0.06f 0.47f 
+0.06f 0.73f 
+
+0.06f 0.51f 
+0.06f  0.47f 
+0.03f.47f 
+0.06f 0.51f 
+0.03f 0.47f 
+0.03f 0.51f 
+};
+
+GLfloat corpo_mm[] = {
+//CABEÇA
+		-0.06f, 0.51f,//base esquerda
+		0.06f,0.51f,//base direita
+		-0.06f,0.70f,//altura esquerda
+		0.06f, 0.70f,//altura direita
+		0.06f,0.51f,//base direita
+		-0.06f,0.70f,//altura esquerda
+
+//PESCOCO
+			-0.03f, 0.47f,
+			0.03f, 0.47f,
+			-0.03f, 0.51f,
+			0.03f, 0.47f,
+			-0.03,0.51f,
+			0.03f,0.51f,
+//OMBROS
+			0.145f,0.47f,//altura direita
+			0.145f,0.38f,//base direita
+			-0.145f,0.38f,//base esquerda
+			-0.145f,0.38f,//base esquerda
+			0.145f,0.47f,//altura direita
+			-0.145f,0.47f,//altura esquerda
+//BRACO DIREITO
+			0.145f,0.38f,//altura esquerda
+			0.145,0.15f, //base esquerda
+			0.110f,0.38f,//base direita
+			0.145,0.15f, //base esquerda
+			0.110f,0.38f,//altura direita
+			0.110f,0.15f,//base direita
+//MAO DIREITA
+			0.145f, -0.01f, //altura esquerda
+			0.110f, 0.01f, //altura direita
+			0.145f, -0.12f,//base esquerda
+			0.110f, 0.01f, //altura direita
+			0.145f, -0.12f,//base esquerda
+			0.110f,-0.12f,//base direita
+//BRACOS ESQUERDO
+			-0.145f,0.38f,//altura esquerda
+			-0.145,0.15f, //base esquerda
+			-0.110f,0.38f,//base direita
+			-0.145,0.15f, //base esquerda
+			-0.110f,0.38f,//altura direita
+			-0.110f,0.15f,//base direita
+//MAO ESQUERDA
+			-0.145f, -0.01f, //altura esquerda
+			-0.110f, 0.01f, //altura direita
+			-0.145f, -0.12f,//base esquerda
+			-0.110f, 0.01f, //altura direita
+			-0.145f, -0.12f,//base esquerda
+			-0.110f,-0.12f,//base direita
+//PERNAS
+//PERNA ESQUERDA
+			-0.1f, -0.12f,
+			-0.03f, -0.12f,
+			-0.1f, -0.42f,
+			-0.03f, -0.12f,
+			-0.1f, -0.42f,
+			-0.03f, -0.42f,
+//PERNA DIREITA
+			0.1f, -0.12f,
+			0.03f, -0.12f,
+			0.1f, -0.42f,
+			0.03f, -0.12f,
+			 0.1f, -0.42f,
+			0.03f, -0.42f,
+};
+
+//BRACELETES
+GLfloat braceletes_mm[] = {
+//BRACELETE DIREITO
+			0.145f,-0.01f, //base esquerda
+			0.110f,0.15f,//altura direita
+			0.110f,-0.01f,//base direita
+			0.145f,-0.01f, //base esquerda
+			0.110f,0.15f,//altura direita
+			0.145f,0.15f,//altura esquerda
+//BRACELETE ESQUERDO
+			-0.145f,-0.01f, //base esquerda
+			-0.110f,0.15f,//altura direita
+			-0.110f,-0.01f,//base direita
+			-0.145f,-0.01f, //base esquerda
+			-0.110f,0.15f,//altura direita
+			-0.145f,0.15f,//altura esquerda
+};
+
+//vemelho
+GLfloat vermelho_mm[] = {
+//pedra_tiara
+		-0.02f, 0.70f, //base esquerda
+		0.02f, 0.70f,
+		-0.02f, 0.73f, //altura esquerda
+		0.02f, 0.73f, //alt d
+		0.02f, 0.70f, 
+		-0.02f, 0.73f, //alt e
+
+//pedra_detalhe_peito_mm
+			-0.01f, 0.36f,
+			0.01f, 0.36f,
+			-0.01f, 0.38f,
+			0.01f, 0.38f,
+			0.01f, 0.36f,
+			-0.01f, 0.38f,
+//abdomem
+			-0.09f, 0.0f,//base lado esquerdo
+			 0.09f, 0.0f,//base lado direito
+			-0.09f, 0.25f,//altura lado esquedo
+			-0.09f, 0.25f,
+			 0.09f, 0.25f,
+			 0.09f, 0.00f,
+
+//BOTA ESQUERDA
+			-0.1f, -0.42f,
+			-0.03f, -0.42f,
+			-0.1f, -0.64f,
+			-0.03f, -0.42f,
+			-0.1f, -0.64f,
+			-0.03f, -0.64f,
+//BOTA DIREITA
+			0.1f, -0.42f,
+			0.03f, -0.42f,
+			0.1f, -0.64f,
+			0.03f, -0.42f,
+			0.1f, -0.64f,
+			0.03f, -0.64f,
+
+
+};
+
+GLfloat amarelo_mm[] = {
+
+//FAIXA CABECA
+		-0.06f, 0.70f,//base esquerda
+		-0.02f,0.70f,
+		-0.06f,0.73f,//altura esquerda
+		-0.02f, 0.73f,//altura direita
+		-0.02f,0.70f,
+		-0.06f,0.73f,//altura esquerda
+
+		0.06f, 0.70f,//base esquerda
+		0.02f,0.70f,
+		0.06f,0.73f,//altura esquerda
+		0.02f, 0.73f,//altura direita
+		0.02f,0.70f,
+		0.06f,0.73f,//altura esquerda
+
+
+
+//PEITO
+			-0.1f, 0.36f,
+			-0.01f, 0.36f,
+			-0.1f, 0.38f,
+			-0.01f, 0.38f,
+			-0.01f, 0.36f,
+			-0.1f, 0.38f,
+
+            0.1f, 0.36f,
+			0.01f, 0.36f,
+			0.1f, 0.38f,
+			0.01f, 0.38f,
+			0.01f, 0.36f,
+			0.1f, 0.38f,
+
+
+
+
+			-0.1f, 0.25f, //base esquerda
+			-0.1f,0.36f, //altura esquerda
+			0.1f, 0.25f, //base direita
+			0.1f, 0.25f, //base direita
+			-0.1f,0.36f, //altura esquerda
+			0.1f, 0.36f,//altura direita
+
+//Detalhes Peito
+			-0.03f, 0.22f,
+			0.03f, 0.22f,
+			-0.03f, 0.25f,
+			0.03f, 0.25f,
+			0.03f, 0.22f,
+			-0.03f, 0.25f,
+
+			-0.01f, 0.16f,
+			0.01f, 0.16f,
+			-0.01f, 0.22f,
+			0.01f, 0.22f,
+			0.01f, 0.16f,
+			-0.01f, 0.22f,
+
+//CINTO 
+			-0.1f, -0.03f,
+			-0.1f, 0.00f,
+			 0.1f, 0.00f,
+			 0.1f, 0.00f,	
+			-0.1f, -0.03f,
+			 0.1f, -0.03f,
+
+//CABO LAÇO e
+			-0.145f,-0.06f,// altura e
+			-0.175f,-0.09f,//base d
+			-0.175f,-0.06f,// base e
+			-0.145,-0.06f,// altura e
+			-0.175f,-0.09f,//base d
+			-0.145f,-0.09f,// base d
+//CABO LAÇO d
+			-0.08f,-0.06f,// altura e
+			-0.110f,-0.09f,//base d
+			-0.110f,-0.06f,// base e
+			-0.08f,-0.06f,// altura e
+			-0.110f,-0.09f,//base d
+			-0.08f,-0.09f,// base d
+};
+
+//LAÇO MULHER MARAVILHA
+GLfloat laco_mm[] = {
+			-0.175f,-0.075f,
+			-0.3f,-0.075f,
+			-0.3f, -0.35f,
+			-0.175f, -0.35f,
+			-0.175f, -0.12f,
+			-0.28f, -0.12f,
+			-0.28f, -0.30f,
+			-0.195f, -0.30f,
+			-0.195f, -0.15f,
+			-0.26f, -0.15f,
+};
+
+
+// SAIA MUL MAR
+GLfloat saia_mm[] = {
+			-0.1f, -0.06f,
+			-0.1f, -0.03f,
+			 0.1f, -0.06f,
+			 0.1f, -0.06f,
+			 0.1f, -0.03f,
+			-0.1f, -0.03f,
+			-0.08f, -0.09f,
+			-0.08f, -0.06f,
+			 0.1f, -0.06f,
+			-0.08f, -0.09f,
+			 0.1f, -0.06f,
+			 0.1f, -0.09f,
+			-0.1f, -0.12f,
+			-0.1f, -0.09f,
+			 0.1f, -0.12f,
+			 0.1f, -0.12f,
+			 0.1f, -0.09f,
+			 -0.1f, -0.09f,
+};
+
+
+

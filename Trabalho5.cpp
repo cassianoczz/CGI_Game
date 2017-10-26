@@ -19,7 +19,7 @@ using namespace std;
 typedef enum { SHAPE_TEAPOT=1, SHAPE_TORUS, SHAPE_CONE } Shape;
 Shape g_CurrentShape = SHAPE_TORUS;
 
-const GLint WIDTH = 1280, HEIGHT = 768;
+const GLint WIDTH = 1366, HEIGHT = 768;
 const GLfloat R = 1.0f, G = 1.0f, B = 1.0f, A = 0.0f;
 double xposMouse, yposMouse, zoommm = 1.0f, zoomhulk = 1.0f, Person, present;
 int widthWindow, heightWindow;
@@ -28,7 +28,7 @@ bool selecionamm = false, selecionahulk = false, selecionaanime = false;
 const float mp = 3.1415926/180.0;
 const float uqp = 3.1415926/90.0;
 
-float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XEM=1,YEM=1,TANXSM=0, TANYSM=0, EM=0.6;
+float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XEM=1,YEM=1,TANXSM=0, TANYSM=0, EM=1.0;
 GLuint colorbuffer, vertexbuffer, MatrixIDXT, MatrixIDYT, MatrixIDGRAUS, MatrixIDXE, MatrixIDYE, MatrixIDTANXS, MatrixIDTANYS, MatrixIDE, MatrixIDXTM, 
 MatrixIDYTM, MatrixIDGRAUSM, MatrixIDXEM, MatrixIDYEM, MatrixIDTANXSM, MatrixIDTANYSM, MatrixIDEM,programID, intPerson;
 
@@ -440,7 +440,7 @@ int main( void ){
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &colorbuffer);
 	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1"); 
-		
+	std::vector<glm::vec2> nave_valdir = loadModel("./coordinates/nave_valdir");
 
 	do{	
 		// Limpa a Tela
@@ -450,12 +450,8 @@ int main( void ){
 		// Primeiro buffer de atributo: vértices
 		configLayout(vertexbuffer, colorbuffer);
 		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
-		
+		drawModel(1, GL_TRIANGLES, nave_valdir, 0.0, 1.0, 0.0);
 		MouseKeyboardMovimentObject();
-		if(selecionahulk){
-			E = zoomhulk;
-			E = zoomhulk;
-		}
 
 		if(selecionamm){
 			EM = zoommm;

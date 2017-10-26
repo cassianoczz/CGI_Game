@@ -28,7 +28,7 @@ bool selecionamm = false, selecionahulk = false, selecionaanime = false;
 const float mp = 3.1415926/180.0;
 const float uqp = 3.1415926/90.0;
 
-float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XEM=1,YEM=1,TANXSM=0, TANYSM=0, EM=0.6;
+float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XEM=1,YEM=1,TANXSM=0, TANYSM=0, EM=1;
 GLuint colorbuffer, vertexbuffer, MatrixIDXT, MatrixIDYT, MatrixIDGRAUS, MatrixIDXE, MatrixIDYE, MatrixIDTANXS, MatrixIDTANYS, MatrixIDE, MatrixIDXTM, 
 MatrixIDYTM, MatrixIDGRAUSM, MatrixIDXEM, MatrixIDYEM, MatrixIDTANXSM, MatrixIDTANYSM, MatrixIDEM,programID, intPerson;
 
@@ -439,7 +439,10 @@ int main( void ){
 	shaderLoadCreat();
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &colorbuffer);
+	std::vector<glm::vec2> asteroide0 = loadModel("./coordinates/asteroide0"); 
 	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1"); 
+	std::vector<glm::vec2> asteroide2 = loadModel("./coordinates/asteroide2"); 
+	std::vector<glm::vec2> asteroide3 = loadModel("./coordinates/asteroide3"); 
 		
 
 	do{	
@@ -449,7 +452,10 @@ int main( void ){
 		glUseProgram(programID);
 		// Primeiro buffer de atributo: vértices
 		configLayout(vertexbuffer, colorbuffer);
-		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide0, 0.0, 0.7, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 0.7, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide2, 0.0, 0.7, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide3, 0.0, 0.7, 0.0);
 		
 		MouseKeyboardMovimentObject();
 		if(selecionahulk){

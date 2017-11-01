@@ -439,7 +439,10 @@ int main( void ){
 	shaderLoadCreat();
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &colorbuffer);
-	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1"); 
+	std::vector<glm::vec2> asteroide0 = loadModel("./coordinates/asteroide0");
+	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1");
+	std::vector<glm::vec2> asteroide2 = loadModel("./coordinates/asteroide2");
+	std::vector<glm::vec2> asteroide3 = loadModel("./coordinates/asteroide3"); 
 	std::vector<glm::vec2> nave_valdir = loadModel("./coordinates/nave_valdir");
 
 	do{	
@@ -449,7 +452,10 @@ int main( void ){
 		glUseProgram(programID);
 		// Primeiro buffer de atributo: vértices
 		configLayout(vertexbuffer, colorbuffer);
+		drawModel(1, GL_TRIANGLES, asteroide0, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide2, 0.0, 1.0, 0.0);
+		drawModel(1, GL_TRIANGLES, asteroide3, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, nave_valdir, 0.0, 1.0, 0.0);
 		MouseKeyboardMovimentObject();
 

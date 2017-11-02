@@ -38,6 +38,7 @@ void adicionaBarras(){
 	TwWindowSize(WIDTH, HEIGHT-50);//Alterar tamanho da Janela
 
 	TwBar * bar = TwNewBar("TweakBar");
+	TwDefine("TweakBar size='800 600' ");
 	TwSetParam(bar, NULL, "position", TW_PARAM_CSTRING, 1, "10 10");
 	TwSetParam(bar, NULL, "refresh", TW_PARAM_CSTRING, 1, "0.1");
     TwDefine(" GLOBAL help='This example shows how to integrate AntTweakBar with GLFW and OpenGL.' "); // Message added to the help bar.

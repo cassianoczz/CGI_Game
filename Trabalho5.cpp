@@ -20,7 +20,7 @@ typedef enum { SHAPE_TEAPOT=1, SHAPE_TORUS, SHAPE_CONE } Shape;
 Shape g_CurrentShape = SHAPE_TORUS;
 
 const GLint WIDTH = 1366, HEIGHT = 768;
-const GLfloat R = 1.0f, G = 1.0f, B = 1.0f, A = 0.0f;
+const GLfloat R = 0.0f, G = 0.0f, B = 0.0f, A = 0.0f;
 double xposMouse, yposMouse, zoommm = 1.0f, zoomhulk = 1.0f, Person, present;
 int widthWindow, heightWindow;
 bool selecionamm = false, selecionahulk = false, selecionaanime = false;
@@ -32,46 +32,21 @@ float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XE
 GLuint colorbuffer, vertexbuffer, MatrixIDXT, MatrixIDYT, MatrixIDGRAUS, MatrixIDXE, MatrixIDYE, MatrixIDTANXS, MatrixIDTANYS, MatrixIDE, MatrixIDXTM, 
 MatrixIDYTM, MatrixIDGRAUSM, MatrixIDXEM, MatrixIDYEM, MatrixIDTANXSM, MatrixIDTANYSM, MatrixIDEM,programID, intPerson;
 
-char * instrucoes = strdup ( "Primeiramente Selecione o personagem na Barra da esquerda clicando no desejado" ) ;
-char * instrucoes2 = strdup ( "Para animacao clique na opcao correspondente na Barra da esquerda." ) ;
-char * instrucoes3 = strdup ( "Para selecionar os personagens nas configuracoes de Origem pressione a tecla R " ) ;
-char * itranslacao = strdup ( "Clique o botão direito do mouse, e arraste para transladar " ) ;
-char * irotacao = strdup ( "Horario: Seta pra cima + Seta pra direita, Anti Horario: Seta pra cima + Seta pra esquerda" ) ;
-char * iescalanuniforme = strdup ( "Pra Y: Seta pra cima + Seta pra Baixo, Para X: Seta pra Esquerda + Seta pra Direita" ) ;
-char * iescalauniforme = strdup ( "Pra aumentar: Seta pra Cima, Pra diminuir: Seta Pra Baixo" ) ;
-char * ishearx = strdup ( "Para X: Shift + Seta Esquerda (AntiHorario), Shift + Seta Direita (Horario)" ) ;
 char * isheary = strdup ( "Para Y: Shift + Seta pra Baixo (Diminui), Shift + Seta pra Cima (Cresce)" ) ;
 
 void adicionaBarras(){
 	// Initialize the GUI
 	TwInit(TW_OPENGL_CORE, NULL);
-	TwWindowSize(WIDTH, HEIGHT-50);//Alterar tamanho da Janela
+	TwWindowSize(WIDTH, HEIGHT);//Alterar area que cobre o mouse
 
-	TwBar * bar = TwNewBar("Barra de Controle");
-	TwBar * bar2 = TwNewBar("Barra de Informacoes");
-
-	TwSetParam(bar, NULL, "position", TW_PARAM_CSTRING, 1, "15 15");
-	TwSetParam(bar, NULL, "refresh", TW_PARAM_CSTRING, 1, "0.1");
+	TwBar * bar = TwNewBar("Space_Invaders");
+	TwDefine("Space_Invaders position='0 0'  size='1366 768' refresh=0.5");
+	TwDefine(" Space_Invaders color='0 0 0' text=white ");
+	TwDefine(" Space_Invaders alpha=255 "); 
     TwAddVarRW(bar, "Select MM", TW_TYPE_BOOL8 , &selecionamm, NULL);
     TwAddVarRW(bar, "Select HULK", TW_TYPE_BOOL8 , &selecionahulk, NULL);
-    TwAddVarRW(bar, "Escalar Uniforme MM", TW_TYPE_DOUBLE, &zoommm, 
-        " label='Escalar Unif MM' min=0 max=20 step=0.001  help='Mostra qual a escala atual do personagem' ");
-
-    TwAddVarRW(bar, "Escalar Uniforme Hulk", TW_TYPE_DOUBLE, &zoomhulk, 
-        " label='Escalar Unif Hulk' min=0 max=20 step=0.001  help='Mostra qual a escala atual do personagem' ");
-
-    TwAddVarRW(bar, "ANIMAR", TW_TYPE_BOOL8 , &selecionaanime, NULL);
-    TwSetParam(bar2, NULL, "position", TW_PARAM_CSTRING, 1, "1050 15");
-	TwSetParam(bar2, NULL, "refresh", TW_PARAM_CSTRING, 1, "0.1");
-    TwAddVarRW(bar2, "1. ", TW_TYPE_CDSTRING , &instrucoes, NULL);
-    TwAddVarRW(bar2, "2. ", TW_TYPE_CDSTRING , &instrucoes2, NULL);
-    TwAddVarRW(bar2, "3. ", TW_TYPE_CDSTRING , &instrucoes3, NULL);
-    TwAddVarRW(bar2, "Translacao:", TW_TYPE_CDSTRING , &itranslacao, NULL);
-    TwAddVarRW(bar2, "Rotacao:", TW_TYPE_CDSTRING , &irotacao, NULL);
-    TwAddVarRW(bar2, "Escala Nao Unif:", TW_TYPE_CDSTRING , &iescalanuniforme, NULL);
-    TwAddVarRW(bar2, "Escala Unif:", TW_TYPE_CDSTRING , &iescalauniforme, NULL);
-    TwAddVarRW(bar2, "Shear X:", TW_TYPE_CDSTRING , &ishearx, NULL);
-    TwAddVarRW(bar2, "Shear Y:", TW_TYPE_CDSTRING , &isheary, NULL);
+    TwDefine(" Space_Invaders help='Para reiniciar o a saga precione R' ");
+	TwAddVarRW(bar, "Shear Y:", TW_TYPE_CDSTRING , &isheary, NULL);
 }
 
 void shaderLoadCreat(){
@@ -118,8 +93,8 @@ void sendTransfHulk(){
 	glUniform1f(MatrixIDXE, XE);
 	glUniform1f(MatrixIDYE, YE);
 }
-
-void MouseKeyboardMovimentObject(){
+/*
+void //(){
 	int botao;
 	glfwGetCursorPos(window, &xposMouse, &yposMouse);
 	glfwGetWindowSize(window,&widthWindow, &heightWindow);
@@ -292,7 +267,7 @@ void MouseKeyboardMovimentObject(){
 			XT=0;YT=0;GRAUS=0;XE=1;YE=1;TANXS=0;TANYS=0;E=1; XTM=0;YTM=0;GRAUSM=0;XEM=1;YEM=1;TANXSM=0;TANYSM=0; EM=0.6, zoommm = 1, zoomhulk = 1;
 		}
 	}
-
+*/
 
 int initWindow(){
 	if( !glfwInit() )
@@ -307,7 +282,7 @@ int initWindow(){
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow( WIDTH, HEIGHT, "Heros", NULL, NULL);
+	window = glfwCreateWindow( WIDTH, HEIGHT, "Space Invaders", NULL, NULL);
 	if( window == NULL ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		getchar();
@@ -429,7 +404,6 @@ void destroyWindows(GLuint vertexbuffer, GLuint colorbuffer, GLuint VertexArrayI
 	glfwTerminate();
 }
 
-
 int main( void ){
 	initWindow();
 	GLuint VertexArrayID;
@@ -457,7 +431,7 @@ int main( void ){
 		drawModel(1, GL_TRIANGLES, asteroide2, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, asteroide3, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, nave_valdir, 0.0, 1.0, 0.0);
-		MouseKeyboardMovimentObject();
+		//MouseKeyboardMovimentObject();
 
 		if(selecionamm){
 			EM = zoommm;

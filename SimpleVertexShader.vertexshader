@@ -119,7 +119,7 @@ mat3 shear_Y = transpose(mat3(
 void main(){
 		if(Person == 2){
 			mat3 combinada = translation * escala * escalanu * rotacao * shear_X * shear_Y;
-			gl_Position.xyw = combinada * vec3(vertexPosition_modelspace,1);
+			gl_Position.xyw = combinada * vec3(vertexPosition_modelspace*0.01,1);
     		gl_Position.z = 0;
 		}
 		if(Person == 1){

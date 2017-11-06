@@ -31,14 +31,19 @@ const float uqp = 3.1415926/90.0;
 float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XEM=1,YEM=1,TANXSM=0, TANYSM=0, EM=1.0;
 GLuint colorbuffer, vertexbuffer, MatrixIDXT, MatrixIDYT, MatrixIDGRAUS, MatrixIDXE, MatrixIDYE, MatrixIDTANXS, MatrixIDTANYS, MatrixIDE, MatrixIDXTM, 
 MatrixIDYTM, MatrixIDGRAUSM, MatrixIDXEM, MatrixIDYEM, MatrixIDTANXSM, MatrixIDTANYSM, MatrixIDEM,programID, intPerson;
-
 char * isheary = strdup ( "Para Y: Shift + Seta pra Baixo (Diminui), Shift + Seta pra Cima (Cresce)" ) ;
+
+int main();
+void TW_CALL RunCB(void)
+{ 
+  main();
+}
 
 void adicionaBarras(){
 	// Initialize the GUI
 	TwInit(TW_OPENGL_CORE, NULL);
 	TwWindowSize(WIDTH, HEIGHT);//Alterar area que cobre o mouse
-
+	
 	TwBar * bar = TwNewBar("Space_Invaders");
 	TwDefine("Space_Invaders position='0 0'  size='1366 768' refresh=0.5");
 	TwDefine(" Space_Invaders color='0 0 0' text=white ");
@@ -47,6 +52,7 @@ void adicionaBarras(){
     TwAddVarRW(bar, "Select HULK", TW_TYPE_BOOL8 , &selecionahulk, NULL);
     TwDefine(" Space_Invaders help='Para reiniciar o a saga precione R' ");
 	TwAddVarRW(bar, "Shear Y:", TW_TYPE_CDSTRING , &isheary, NULL);
+	TwAddButton(bar, " run ", RunCB, NULL, " Label='Start Game' ");
 }
 
 void shaderLoadCreat(){
@@ -447,3 +453,4 @@ int main( void ){
 		destroyWindows(vertexbuffer, colorbuffer, VertexArrayID, programID);
 	return 0;
 }
+

@@ -1,29 +1,25 @@
 #include<bits/stdc++.h>
 #include <unistd.h>
 #include<string>
-// Include GLEW
 #include <GL/glew.h>
-// Include GLFW
 #include <GLFW/glfw3.h>
-GLFWwindow* window;
-// Include GLM
+#include "common/text2D.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "common/shader.hpp"
-// Include AntTweakBar
 #include "AntTweakBarCode/AntTweakBar/include/AntTweakBar.h"
 using namespace glm;
 using namespace std;
-
 #define NUM_SHAPES 3
+GLFWwindow* window;
+
 typedef enum { SHAPE_TEAPOT=1, SHAPE_TORUS, SHAPE_CONE } Shape;
 Shape g_CurrentShape = SHAPE_TORUS;
 
 const GLint WIDTH = 1366, HEIGHT = 768;
-const GLfloat R = 0.0f, G = 0.0f, B = 0.0f, A = 0.0f;
+const GLfloat R = 0.0f, G = 0.0f, B = 0.0f, A = 1.0f;
 double xposMouse, yposMouse, zoommm = 1.0f, zoomhulk = 1.0f, Person, present;
-int widthWindow, heightWindow;
-bool selecionamm = false, selecionahulk = false, selecionaanime = false;
+int widthWindow, heightWindow, selecionamm, selecionahulk, selecionaanime;
 
 const float mp = 3.1415926/180.0;
 const float uqp = 3.1415926/90.0;
@@ -79,181 +75,36 @@ void sendTransfHulk(){
 	glUniform1f(MatrixIDXE, XE);
 	glUniform1f(MatrixIDYE, YE);
 }
-/*
-void //(){
-	int botao;
+
+void MouseKeyboardMovimentObject(){
 	glfwGetCursorPos(window, &xposMouse, &yposMouse);
 	glfwGetWindowSize(window,&widthWindow, &heightWindow);
 	double horizontal = double(xposMouse * 2 - widthWindow)/double(widthWindow);
 	double vertical = double(heightWindow - yposMouse * 2)/double(heightWindow);
-	present = glfwJoystickPresent(GLFW_JOYSTICK_1);
-	if(present==1){
-		const unsigned char *estadobotao = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &botao);
-		if (estadobotao[0] == GLFW_PRESS) 	//BUTTON_UP
-		{		
-			YTM += 0.01;
-		}
-		
-		if (estadobotao[2] == GLFW_PRESS) 	//BUTTON_DOWN
-		{		
-			YTM += -0.01;
-		}
-		
-		if (estadobotao[1] == GLFW_PRESS) 	//BUTTON_RIGHT
-		{		
-			XTM += 0.01;
-		}
-		
-		if (estadobotao[3] == GLFW_PRESS) 	//BUTTON_LEFT
-		{		
-			XTM += -0.01;
-		}
-	}else{
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	{	
+		XTM = horizontal;
+		YTM = vertical;
+	}
 
-		if (selecionamm && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-		{	
-			XTM = horizontal;
-			YTM = vertical-0.2;
-		}
-		}
-	
-		if (selecionahulk && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-		{
-			XT = horizontal-0.84;
-			YT = vertical+0.35;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			GRAUS += 1;
-		}
-	
-		if (selecionamm	&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			GRAUSM += 1;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			GRAUS += -1;
-		}
-	
-		if (selecionamm	&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			GRAUSM += -1;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{		
-			YE += 0.001;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{		
-			YEM += 0.001;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{		
-			XE += 0.001;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{		
-			XEM += 0.001;
-		}
-	
-		if (selecionahulk 	&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			E += 0.001;
-		}
-	
-		if (selecionamm 	&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{		
-			EM += 0.001;
-		}
-	
-		if (selecionahulk 	&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{		
-			E -= 0.001;
-		}
-	
-		if (selecionamm 	&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{		
-			EM -= 0.001;
-		}
-	
-		if (selecionaanime)
-		{	
-			E +=-0.001;
-			EM +=-0.001;
-			GRAUSM+= 1.0;
-			GRAUS+= -1.0;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		{	
-			TANXS += 0.1;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		{	
-			TANXSM += 0.1;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{	
-			TANXS += -0.1;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{	
-			TANXSM += -0.1;
-		}
-	
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{	
-			TANYS += 0.1;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		{	
-			TANYSM += 0.1;
-		}
-	
-		if (selecionahulk && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{	
-			TANYS += -0.1;
-		}
-	
-		if (selecionamm && glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{	
-			TANYSM += -0.1;
-		}
-	
-		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		{	
-			XT=0;YT=0;GRAUS=0;XE=1;YE=1;TANXS=0;TANYS=0;E=1; XTM=0;YTM=0;GRAUSM=0;XEM=1;YEM=1;TANXSM=0;TANYSM=0; EM=0.6, zoommm = 1, zoomhulk = 1;
+	}
+
+glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto){
+	glm::vec4 maiormenor = glm::vec4(objeto[0].x, objeto[0].y, objeto[0].x, objeto[0].y);
+
+	for(int i=1;i < objeto.size();i++){
+		if(objeto[i].x > maiormenor.x){
+			maiormenor.x = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY] 
+		}if(objeto[i].y > maiormenor.y){
+			maiormenor.y = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
+		}if(objeto[i].x < maiormenor.z){
+			maiormenor.z = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY]
+		}if(objeto[i].y < maiormenor.w){
+			maiormenor.w = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
 		}
 	}
-*/
+}
+
 void TW_CALL StartGame(void *)
 { 
 	TwTerminate();
@@ -277,6 +128,13 @@ void adicionaBarras(){
 	TwAddButton(bar, " startgame ", StartGame, NULL, " Label='Start Space Invaders'");
 }
 
+int colisaoEntreCaixas(glm::vec4 a, glm::vec4 b){
+   if((a.z <= b.x && a.x >= b.z) && (a.w <= b.y && a.y >= b.w)){
+	   return 1;
+   }else
+   return 0;
+}
+
 int initWindow(){
 	if( !glfwInit() )
 	{
@@ -290,7 +148,7 @@ int initWindow(){
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow( WIDTH, HEIGHT, "Space Invaders", NULL, NULL);
+	window = glfwCreateWindow( WIDTH, HEIGHT, "Heros", NULL, NULL);
 	if( window == NULL ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		getchar();
@@ -320,7 +178,7 @@ int initWindow(){
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);//Alterado
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
-	glClearColor(R, G, B, A);
+	glClearColor(R,G,B,A);
 	glDepthFunc(GL_LESS);
 	return 1;
 }
@@ -334,6 +192,7 @@ std::vector<glm::vec2> loadModel(const char *path){
 		getchar();
 		return vertices;
 	}
+
 
 	while(1){
 		glm::vec2 vertex;
@@ -412,6 +271,7 @@ void destroyWindows(GLuint vertexbuffer, GLuint colorbuffer, GLuint VertexArrayI
 	glfwTerminate();
 }
 
+
 int main( void ){
 	initWindow();
 	GLuint VertexArrayID;
@@ -426,7 +286,7 @@ int main( void ){
 	std::vector<glm::vec2> asteroide2 = loadModel("./coordinates/asteroide2");
 	std::vector<glm::vec2> asteroide3 = loadModel("./coordinates/asteroide3"); 
 	std::vector<glm::vec2> nave_valdir = loadModel("./coordinates/nave_valdir");
-
+	initText2D( "Holstein.DDS" );
 	do{	
 		// Limpa a Tela
 		glClear( GL_COLOR_BUFFER_BIT );
@@ -438,21 +298,27 @@ int main( void ){
 		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, asteroide2, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, asteroide3, 0.0, 1.0, 0.0);
-		drawModel(1, GL_TRIANGLES, nave_valdir, 0.0, 1.0, 0.0);
-		//MouseKeyboardMovimentObject();
-
-		if(selecionamm){
-			EM = zoommm;
-			EM = zoommm;
-		}
+		drawModel(2, GL_TRIANGLES, nave_valdir, 0.0, 1.0, 0.0);
+		MouseKeyboardMovimentObject();
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		TwDraw();	
+		
+		char text[256];
+		sprintf(text,"%.2f sec", glfwGetTime() );
+		printText2D(text, 10, 50, 30);
+
 	 	glfwSwapBuffers(window);
-	 	glfwPollEvents();
+		glfwPollEvents();
+
+		glm::vec4 teste = glm::vec4(10,10,-10,-10);
+		glm::vec4 teste2 = glm::vec4(60,60,30,30);
+		//printf("%f\n %f\n %f\n %f\n",teste.x,teste.y,teste.z,teste.w);
+		if(colisaoEntreCaixas(teste,teste2)){
+			printf("Tem Colisao\n");
+		}
 }
 	while(glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 		destroyWindows(vertexbuffer, colorbuffer, VertexArrayID, programID);
 	return 0;
 }
-

@@ -12,6 +12,6 @@ Target: AntTweakBar
 all:	Target
 
 AntTweakBar: $(CPPSOURCES)
-	$(CXX)  common/shader.cpp $(CPPSOURCES) $(LIBS) -o Trabalho5 -Wall
+	$(CXX)  common/shader.cpp common/text2D.cpp common/texture.cpp $(CPPSOURCES) $(LIBS) -o Trabalho5 -Wall
 run:
 	./Trabalho5

@@ -32,28 +32,8 @@ float XT=0,YT=0,GRAUS=0,XE=1,YE=1,TANXS=0, TANYS=0, E=1, XTM=0,YTM=0,GRAUSM=0,XE
 GLuint colorbuffer, vertexbuffer, MatrixIDXT, MatrixIDYT, MatrixIDGRAUS, MatrixIDXE, MatrixIDYE, MatrixIDTANXS, MatrixIDTANYS, MatrixIDE, MatrixIDXTM, 
 MatrixIDYTM, MatrixIDGRAUSM, MatrixIDXEM, MatrixIDYEM, MatrixIDTANXSM, MatrixIDTANYSM, MatrixIDEM,programID, intPerson;
 char * isheary = strdup ( "Para Y: Shift + Seta pra Baixo (Diminui), Shift + Seta pra Cima (Cresce)" ) ;
+unsigned char cubeColor[] = { 255, 0, 0, 128 }; // Model color (32bits RGBA)
 
-int main();
-void TW_CALL RunCB(void)
-{ 
-  main();
-}
-
-void adicionaBarras(){
-	// Initialize the GUI
-	TwInit(TW_OPENGL_CORE, NULL);
-	TwWindowSize(WIDTH, HEIGHT);//Alterar area que cobre o mouse
-	
-	TwBar * bar = TwNewBar("Space_Invaders");
-	TwDefine("Space_Invaders position='0 0'  size='1366 768' refresh=0.5");
-	TwDefine(" Space_Invaders color='0 0 0' text=white ");
-	TwDefine(" Space_Invaders alpha=255 "); 
-    TwAddVarRW(bar, "Select MM", TW_TYPE_BOOL8 , &selecionamm, NULL);
-    TwAddVarRW(bar, "Select HULK", TW_TYPE_BOOL8 , &selecionahulk, NULL);
-    TwDefine(" Space_Invaders help='Para reiniciar o a saga precione R' ");
-	TwAddVarRW(bar, "Shear Y:", TW_TYPE_CDSTRING , &isheary, NULL);
-	TwAddButton(bar, " run ", RunCB, NULL, " Label='Start Game' ");
-}
 
 void shaderLoadCreat(){
 	//Leitura e compilação dos Shaders em tempo de execução
@@ -274,6 +254,28 @@ void //(){
 		}
 	}
 */
+void TW_CALL StartGame(void *)
+{ 
+	TwTerminate();
+}
+void adicionaBarras(){
+	// Initialize the GUI
+	TwInit(TW_OPENGL_CORE, NULL);
+	TwWindowSize(WIDTH, HEIGHT);//Alterar area que cobre o mouse
+	
+	TwBar * bar = TwNewBar("Space_Invaders");
+	TwDefine("Space_Invaders position='0 0'  size='1366 768' refresh=0.5");
+	TwDefine(" Space_Invaders color='0 0 0' text=white ");
+	TwDefine(" Space_Invaders alpha=255 "); 
+	TwDefine(" GLOBAL fontsize=3 ");
+	 // Add 'cubeColor' to 'bar': it is a modifable variable of type TW_TYPE_COLOR32 (32 bits color) with alpha
+	TwAddVarRW(bar, "cubeColor", TW_TYPE_COLOR32, &cubeColor," label='Cube color' alpha help='Color and transparency of the cube.' ");
+    TwAddVarRW(bar, "Select MM", TW_TYPE_BOOL8 , &selecionamm, NULL);
+    TwAddVarRW(bar, "Select HULK", TW_TYPE_BOOL8 , &selecionahulk, NULL);
+    TwDefine(" Space_Invaders help='Para reiniciar o a saga precione R' ");
+	TwAddVarRW(bar, "Shear Y:", TW_TYPE_CDSTRING , &isheary, NULL);
+	TwAddButton(bar, " startgame ", StartGame, NULL, " Label='Start Space Invaders'");
+}
 
 int initWindow(){
 	if( !glfwInit() )

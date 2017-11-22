@@ -31,7 +31,7 @@ char * isheary = strdup ( "Para Y: Shift + Seta pra Baixo (Diminui), Shift + Set
 
 void TW_CALL RunCB(void *)
 { 
-  TwTerminate();
+	TwDefine("Space_Invaders position='1367 769'  size='1366 768' refresh=0.5");
 }
 
 void adicionaBarras(){
@@ -96,33 +96,29 @@ void MouseKeyboardMovimentObject(){
 
 	}
 
-glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto,float xTranslacao,float yTranslacao ){
+glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto){
 	glm::vec4 maiormenor = glm::vec4(objeto[0].x, objeto[0].y, objeto[0].x, objeto[0].y);
 
-	for(int i=1 ;i < objeto.size() ;i++){
-		if(objeto[i].x > maiormenor.x){
-			maiormenor.x = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY] 
-		}if(objeto[i].y > maiormenor.y){
-			maiormenor.y = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
-		}if(objeto[i].x < maiormenor.z){
-			maiormenor.z = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY]
-		}if(objeto[i].y < maiormenor.w){
-			maiormenor.w = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
+		for(int i=1 ;i < objeto.size() ;i++){
+			if(objeto[i].x > maiormenor.x){		
+				maiormenor.x = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY] 
+			}if(objeto[i].y > maiormenor.y){
+				maiormenor.y = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
+			}if(objeto[i].x < maiormenor.z){
+				maiormenor.z = objeto[i].x; //maiormenor[maiorX][maiorY][menorX][MenorY]
+			}if(objeto[i].y < maiormenor.w){
+				maiormenor.w = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
+			}
 		}
-	}
-	maiormenor.x += xTranslacao;
-	maiormenor.y += yTranslacao;
-	maiormenor.z += xTranslacao;
-	maiormenor.w += yTranslacao;
-
 	return maiormenor;
 }
 
-int colisaoEntreCaixas(glm::vec4 a, glm::vec4 b){
+int colisaoEntreCaixas(glm::vec4 a,/*float xTranslacaoA,float yTranslacaoA, float EscalaA,*/ glm::vec4 b/*,float xTranslacaoB, float yTranslacaoB, float EscalaB */){
    if((a.z <= b.x && a.x >= b.z) && (a.w <= b.y && a.y >= b.w)){
 	   return 1;
-   }else
-   return 0;
+   }else{
+		return 0;
+   }
 }
 
 int initWindow(){
@@ -282,6 +278,7 @@ int main( void ){
 	shaderLoadCreat();
 	glGenBuffers(1, &vertexbuffer);
 	glGenBuffers(1, &colorbuffer);
+	std::vector<glm::vec2> alienigena1 = loadModel("./coordinates/alienigena1");
 	std::vector<glm::vec2> asteroide1 = loadModel("./coordinates/asteroide1");
 	std::vector<glm::vec2> asteroide2 = loadModel("./coordinates/asteroide2");
 	std::vector<glm::vec2> asteroide3 = loadModel("./coordinates/asteroide3");
@@ -295,6 +292,7 @@ int main( void ){
 		glUseProgram(programID);
 		// Primeiro buffer de atributo: vértices
 		configLayout(vertexbuffer, colorbuffer);
+		drawModel(1, GL_TRIANGLES, alienigena1, 0.0, 1.0, 0.0);
 		drawModel(1, GL_TRIANGLES, asteroide1, 0.0, 1.0, 0.0);
 		drawModel(2, GL_TRIANGLES, asteroide2, 0.0, 1.0, 0.0);
 		drawModel(3, GL_TRIANGLES, asteroide3, 0.0, 1.0, 0.0);
@@ -317,7 +315,9 @@ int main( void ){
 		//printf("%f\n %f\n %f\n %f\n",teste.x,teste.y,teste.z,teste.w);
 		
 	
-		if(colisaoEntreCaixas(limitesBoundingBox(nave_valdir, xTranslacaoNave, yTranslacaoNave),limitesBoundingBox(asteroide1, 0.0, 0.0))){
+		if(colisaoEntreCaixas(limitesBoundingBox(nave_valdir),limitesBoundingBox(asteroide1))){
+
+			printf("%f Ytranslaçao",yTranslacaoNave);
 			printf("Tem Colisao\n");
 		}
 }

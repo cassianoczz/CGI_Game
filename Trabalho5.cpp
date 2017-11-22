@@ -96,7 +96,7 @@ void MouseKeyboardMovimentObject(){
 
 	}
 
-glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto){
+glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto,float xTranslacao,float yTranslacao ){
 	glm::vec4 maiormenor = glm::vec4(objeto[0].x, objeto[0].y, objeto[0].x, objeto[0].y);
 
 	for(int i=1 ;i < objeto.size() ;i++){
@@ -110,6 +110,11 @@ glm::vec4 limitesBoundingBox(std::vector<glm::vec2> objeto){
 			maiormenor.w = objeto[i].y; //maiormenor[maiorX][maiorY][menorX][MenorY]
 		}
 	}
+	maiormenor.x += xTranslacao;
+	maiormenor.y += yTranslacao;
+	maiormenor.z += xTranslacao;
+	maiormenor.w += yTranslacao;
+
 	return maiormenor;
 }
 
@@ -307,10 +312,12 @@ int main( void ){
 	 	glfwSwapBuffers(window);
 		glfwPollEvents();
 
-		glm::vec4 teste = glm::vec4(10,10,-10,-10);
-		glm::vec4 teste2 = glm::vec4(60,60,30,30);
+		//glm::vec4 teste = glm::vec4(10,10,-10,-10);
+		//glm::vec4 teste2 = glm::vec4(60,60,30,30);
 		//printf("%f\n %f\n %f\n %f\n",teste.x,teste.y,teste.z,teste.w);
-		if(colisaoEntreCaixas(teste,teste2)){
+		
+	
+		if(colisaoEntreCaixas(limitesBoundingBox(nave_valdir, xTranslacaoNave, yTranslacaoNave),limitesBoundingBox(asteroide1, 0.0, 0.0))){
 			printf("Tem Colisao\n");
 		}
 }
